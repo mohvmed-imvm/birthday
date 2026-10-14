@@ -1,301 +1,222 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
     <meta name="monetag" content="81085f31f73b5ad2a208c83ceab55b38">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>BirthdayGirl Surprise | 4U celebrations</title>
-
+    <title>Birthday Surprise | 4U celebrations</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <!-- قائمة الموقع -->
     <header class="site-header" id="siteHeader">
-
         <a href="https://mohvmed-imvm.github.io/4U-celebration/"
-           class="brand"
-           aria-label="4U celebrations">
-
+           class="brand" aria-label="4U celebrations">
             <span class="brand-name">4U</span>
             <span class="brand-subtitle">celebrations</span>
-
         </a>
 
         <nav class="site-nav">
+            <a href="#aboutModal" class="nav-link" id="aboutButton"
+               data-ar="عن النموذج" data-en="About the Demo">عن النموذج</a>
 
-            <a href="#aboutModal"
-               class="nav-link"
-               id="aboutButton"
-               data-ar="عن النموذج"
-               data-en="About the Demo">
-                عن النموذج
-            </a>
-
-            <a href="https://wa.me/201040275280"
-               class="nav-order"
-               data-ar="اطلب تصميمك"
-               data-en="Order Your Design">
-                اطلب تصميمك
-            </a>
-
+            <a href="#customization" class="nav-order" data-scroll-customization
+               data-ar="طلب التصميم" data-en="Order Design">طلب التصميم</a>
         </nav>
-
     </header>
 
-
-    <!-- نافذة عن النموذج التجريبي -->
-    <div class="modal-overlay"
-         id="aboutModal"
-         aria-hidden="true">
-
-        <section class="about-modal"
-                 role="dialog"
-                 aria-modal="true"
+    <!-- نافذة عن النموذج -->
+    <div class="modal-overlay" id="aboutModal" aria-hidden="true">
+        <section class="about-modal" role="dialog" aria-modal="true"
                  aria-labelledby="modalTitle">
 
-            <button class="modal-close"
-                    id="closeModal"
-                    type="button"
-                    aria-label="Close">
-                &times;
-            </button>
+            <button class="modal-close" id="closeModal" type="button"
+                    aria-label="إغلاق">&times;</button>
 
             <div class="modal-icon" aria-hidden="true">⌘</div>
 
             <h2 id="modalTitle"
                 data-ar="عن النموذج التجريبي"
-                data-en="About the Demo">
-                عن النموذج التجريبي
-            </h2>
+                data-en="About the Demo">عن النموذج التجريبي</h2>
 
-            <p
-                data-ar="التصميم اللي بتشوفه دلوقتي هو نموذج تجريبي من 4U celebrations، معمول عشان تاخد فكرة عن شكل الهدية."
-                data-en="What you're seeing is a demo template by 4U celebrations, created to give you an idea of how your gift website could look.">
+            <p data-ar="التصميم اللي بتشوفه دلوقتي هو نموذج تجريبي من 4U celebrations، معمول عشان تاخد فكرة عن شكل الهدية."
+               data-en="What you're seeing is a demo template by 4U celebrations, created to show you how your gift website could look.">
                 التصميم اللي بتشوفه دلوقتي هو نموذج تجريبي من 4U celebrations، معمول عشان تاخد فكرة عن شكل الهدية.
             </p>
 
             <div class="modal-highlight">
+                <h3 data-ar="كل حاجة قابلة للتخصيص!"
+                    data-en="Everything can be customized!">كل حاجة قابلة للتخصيص!</h3>
 
-                <!--<span class="modal-highlight-icon" aria-hidden="true">💗</span>-->
-
-                <h3
-                    data-ar="كل حاجة قابلة للتخصيص!"
-                    data-en="Everything can be customized!">
-                    كل حاجة قابلة للتخصيص!
-                </h3>
-
-                <p
-                    data-ar="الاسم والكلام والصور والموسيقى والألوان والتفاصيل كلها هتتغير حسب رغبتك."
-                    data-en="Names, messages, photos, music, colors, and all the little details can be tailored to your preferences.">
+                <p data-ar="الاسم والكلام والصور والموسيقى والألوان والتفاصيل كلها هتتغير حسب رغبتك."
+                   data-en="Names, messages, photos, music, colors, and details can be tailored to your preferences.">
                     الاسم والكلام والصور والموسيقى والألوان والتفاصيل كلها هتتغير حسب رغبتك.
                 </p>
-
             </div>
 
             <div class="modal-bottom">
+                <p data-ar="عجبك التصميم؟" data-en="Like this design?">عجبك التصميم؟</p>
 
-                <p
-                    data-ar="عجبك التصميم؟"
-                    data-en="Like this design?">
-                    عجبك التصميم؟
+                <p data-ar="خصص طلبك من خلال الزرار اللي تحت"
+                   data-en="Customize your order using the button below">
+                    خصص طلبك من خلال الزرار اللي تحت
                 </p>
 
-                <p
-                    data-ar="اضغط على «اطلب موقعك» عشان تطلب التصميم ده"
-                    data-en="Tap “Order Your Site”  to order this design.">
-                    اضغط على «اطلب موقعك» عشان تطلب التصميم ده  
-                </p>
-                
-                <a class="modal-order-button"
-                    id="modalOrderButton"
-                    href="https://wa.me/201040275280"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-ar="اطلب موقعك ♡"
-                    data-en="Order Your Site ♡">
-                     اطلب موقعك ♡
-                </a>
-
-
-<!--              <button class="modal-order-button"
-                        id="modalOrderButton"
-                        type="button"
-                        data-ar="اطلب موقعك ♡"
-                        data-en="Order Your Site ♡">
-                    اطلب موقعك ♡
-               </button>
---> 
+                <button class="modal-order-button" type="button"
+                        data-scroll-customization
+                        data-ar="طلب التصميم ♡"
+                        data-en="Order Design ♡">طلب التصميم ♡</button>
             </div>
-
         </section>
-
     </div>
-
 
     <!-- موسيقى عيد الميلاد -->
     <audio id="birthdayMusic" src="birthday.mp3" loop></audio>
 
-
-    <!-- العد التنازلي - يظل بالإنجليزي -->
+    <!-- المقدمة والعد التنازلي -->
     <div class="intro" id="intro">
-
         <div class="glow"></div>
-
-        <div class="intro-text">
-            ...something special is waiting u (user)
-        </div>
-
+        <div class="intro-text">...something special is waiting u</div>
         <div class="number" id="number">5</div>
-
     </div>
-
 
     <!-- الصفحة الرئيسية -->
     <div class="main" id="main">
-
         <div class="content">
 
-            <!-- تنبيه النموذج التجريبي -->
             <div class="demo-note" id="demo-note">
-
                 <span class="demo-dot"></span>
-
-                <span
-                    data-ar="نموذج تجريبي من 4U celebrations"
-                    data-en="Demo Template by 4U celebrations">
+                <span data-ar="نموذج تجريبي من 4U celebrations"
+                      data-en="Demo Template by 4U celebrations">
                     نموذج تجريبي من 4U celebrations
                 </span>
-
             </div>
 
-
-            <!-- العنوان -->
-            <h1
-                data-ar="كل سنة وإنتي أجمل حاجة"
+            <h1 data-ar="كل سنة وإنتي أجمل حاجة"
                 data-en="Happy Birthday, Beautiful!">
                 كل سنة وإنتي أجمل حاجة
             </h1>
 
-
-            <!-- العنوان الفرعي -->
-            <div
-                class="subtitle"
-                data-ar="حضّرتلك مفاجأة صغيرة مخصوص عشانك ♡"
-                data-en="A little surprise made just for you ♡">
+            <div class="subtitle"
+                 data-ar="حضّرتلك مفاجأة صغيرة مخصوص عشانك ♡"
+                 data-en="A little surprise made just for you ♡">
                 حضّرتلك مفاجأة صغيرة مخصوص عشانك ♡
             </div>
 
-
-            <!-- الهدية -->
+            <!-- صندوق الهدية -->
             <div class="gift-area" id="giftArea" onclick="openGift()">
-
                 <div class="gift-box">
-
-                    <div class="lid">
-                        <div class="ribbon"></div>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="ribbon-vertical"></div>
-                    </div>
-
+                    <div class="lid"><div class="ribbon"></div></div>
+                    <div class="box-body"><div class="ribbon-vertical"></div></div>
                 </div>
 
-                <div
-                    class="gift-text"
-                    data-ar="افتحي الهدية ♡"
-                    data-en="Open Your Gift ♡">
-                    افتحي الهدية ♡
-                </div>
-
+                <div class="gift-text"
+                     data-ar="افتحي الهدية ♡"
+                     data-en="Open Your Gift ♡">افتحي الهدية ♡</div>
             </div>
-
 
             <!-- الرسالة -->
             <div class="message" id="message">
-
-                <h2
-                    data-ar="عيد ميلاد سعيد يا جميلة ♡"
+                <h2 data-ar="عيد ميلاد سعيد يا جميلة ♡"
                     data-en="Happy Birthday, Beautiful ♡">
                     عيد ميلاد سعيد يا جميلة ♡
                 </h2>
 
-                <p
-                    data-ar="أتمنى أيامك كلها تبقى مليانة فرحة وضحكة حلوة، وتحققي كل اللي نفسك فيه. تستاهلي كل حاجة جميلة في الدنيا ♡"
-                    data-en="I hope your days are always filled with happiness and beautiful smiles. May all your dreams come true. You deserve all the beautiful things in the world ♡">
+                <p data-ar="أتمنى أيامك كلها تبقى مليانة فرحة وضحكة حلوة، وتحققي كل اللي نفسك فيه. تستاهلي كل حاجة جميلة في الدنيا ♡"
+                   data-en="I hope your days are always filled with happiness and beautiful smiles. May all your dreams come true. You deserve all the beautiful things in the world ♡">
                     أتمنى أيامك كلها تبقى مليانة فرحة وضحكة حلوة، وتحققي كل اللي نفسك فيه. تستاهلي كل حاجة جميلة في الدنيا ♡
                 </p>
-
             </div>
 
-
-            <!-- طلب تصميم مشابه -->
-            <section class="order-section" id="order">
-
+            <!-- زر طلب التصميم -->
+            <section class="order-section">
                 <div class="order-divider"></div>
 
                 <p class="order-description">
-
-                    <span
-                        data-ar="عجبك التصميم؟"
-                        data-en="Love this design?">
+                    <span data-ar="عجبك التصميم؟" data-en="Love this design?">
                         عجبك التصميم؟
                     </span>
-
                     <br>
-
-                    <span
-                        data-ar="نقدر نصمملك هديتك بنفس الفكرة وبالتفاصيل اللي تحبها"
-                        data-en="We can create a personalized gift website just for you">
+                    <span data-ar="نقدر نصمملك هديتك بنفس الفكرة وبالتفاصيل اللي تحبها"
+                          data-en="We can create a personalized gift website just for you">
                         نقدر نصمملك هديتك بنفس الفكرة وبالتفاصيل اللي تحبها
                     </span>
-
                 </p>
 
+                <button class="order-button" id="jumpToCustomization"
+                        type="button" data-scroll-customization>
+                    <span data-ar="طلب التصميم" data-en="Order Design">طلب التصميم</span>
+                    <span aria-hidden="true">↓</span>
+                </button>
 
-                <a
-                    class="order-button"
-                    id="orderButton"
-                    href="https://wa.me/201040275280"
-                    target="_blank"
-                    rel="noopener noreferrer">
-
-                    <span
-                        data-ar="اطلب تصميمك دلوقتي"
-                        data-en="Order Your Design Now">
-                        اطلب تصميمك دلوقتي
-                    </span>
-
-                    <span aria-hidden="true">↗</span>
-
-                </a>
-
-
-                <p
-                    class="order-hint"
-                    data-ar="نموذج تجريبي للشكل الذي يمكنك طلبه"
-                    data-en="A demo of the design you can order">
-                    نموذج تجريبي للشكل الذي يمكنك طلبه
+                <p class="order-hint"
+                   data-ar="خصص النموذج بالبيانات اللي تحبها وابعت طلبك لينا"
+                   data-en="Personalize the template and send us your order">
+                    خصص النموذج بالبيانات اللي تحبها وابعت طلبك لينا
                 </p>
-
             </section>
 
+            <!-- قسم التخصيص في نهاية الصفحة -->
+            <section class="customization-section" id="customization">
+                <div class="customization-heading">
+                    <span class="customization-icon">♡</span>
 
-            <!-- نهاية المحتوى -->
-            <footer class="site-footer">
-                made with 4U
-            </footer>
+                    <h2 data-ar="خصّص هديتك" data-en="Customize Your Gift">
+                        خصّص هديتك
+                    </h2>
 
+                    <p data-ar="اكتب البيانات اللي تحب تظهر في صفحة الهدية"
+                       data-en="Fill in the details you'd like on your gift page">
+                        اكتب البيانات اللي تحب تظهر في صفحة الهدية
+                    </p>
+                </div>
+
+                <label for="customizationText"
+                       class="customization-label"
+                       data-ar="بيانات طلبك"
+                       data-en="Your Order Details">بيانات طلبك</label>
+
+                <textarea id="customizationText" rows="8"
+                          spellcheck="false"
+                          data-placeholder-ar="صاحب عيد الميلاد: اكتب الاسم هنا&#10;العمر: اكتب العمر هنا&#10;الرسالة الشخصية: اكتب رسالتك هنا&#10;تفاصيل إضافية: اكتب أي تفاصيل تانية هنا"
+                          data-placeholder-en="Birthday Person: Enter the name here&#10;Age: Enter the age here&#10;Personal Message: Write your message here&#10;Additional Notes: Add any other details here"></textarea>
+
+                <p class="customization-tip"
+                   data-ar="سيب العناوين زي ما هي واملا البيانات بعد كل عنوان"
+                   data-en="Keep the labels and fill in your details after each one">
+                    سيب العناوين زي ما هي واملا البيانات بعد كل عنوان
+                </p>
+
+                <div class="order-number-line">
+                    <span data-ar="رقم الطلب:" data-en="Order Number:">رقم الطلب:</span>
+                    <strong id="orderNumber">—</strong>
+                </div>
+
+                <button class="custom-action copy-button" id="copyOrder"
+                        type="button">
+                    <span data-ar="نسخ بيانات الطلب" data-en="Copy Order Details">
+                        نسخ بيانات الطلب
+                    </span>
+                </button>
+
+                <button class="custom-action whatsapp-button" id="sendOrder"
+                        type="button">
+                    <span data-ar="إرسال الطلب على واتساب"
+                          data-en="Send Order on WhatsApp">
+                        إرسال الطلب على واتساب
+                    </span>
+                </button>
+
+                <p class="form-status" id="formStatus" role="status"
+                   aria-live="polite"></p>
+            </section>
+
+            <footer class="site-footer">made with 4U</footer>
         </div>
-
     </div>
 
-
     <script src="script.js"></script>
-
 </body>
 </html>

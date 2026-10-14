@@ -1,46 +1,106 @@
-/* =========================
-   LANGUAGE SETTINGS
-========================= */
+
+// =========================
+// LANGUAGE SETTINGS
+// =========================
+
+const LANGUAGE_KEY = "4u-language";
+const WHATSAPP_NUMBER = "201040275280";
+const TEMPLATE_ID = "girl-birthday";
+const ORDER_STORAGE_KEY = "4u-order-" + TEMPLATE_ID;
+
+const customizationText = document.getElementById("customizationText");
+const orderNumberElement = document.getElementById("orderNumber");
+const formStatus = document.getElementById("formStatus");
+
+function getLanguage() {
+    return localStorage.getItem(LANGUAGE_KEY) === "en" ? "en" : "ar";
+}
+
+function getOrderNumber() {
+    let orderNumber = sessionStorage.getItem(ORDER_STORAGE_KEY);
+
+    if (!orderNumber) {
+        const date = new Date();
+        const datePart = [
+            date.getFullYear().toString().slice(-2),
+            String(date.getMonth() + 1).padStart(2, "0"),
+            String(date.getDate()).padStart(2, "0")
+        ].join("");
+
+        const randomPart = Math.random().toString(36).slice(2, 8).toUpperCase();
+
+        orderNumber = `4U-${datePart}-${randomPart}`;
+        sessionStorage.setItem(ORDER_STORAGE_KEY, orderNumber);
+    }
+
+    return orderNumber;
+}
+
+const orderNumber = getOrderNumber();
+
+if (orderNumberElement) {
+    orderNumberElement.textContent = orderNumber;
+}
+
+function getDefaultCustomization(language) {
+    if (language === "en") {
+        return [
+            "Birthday Person: ",
+            "Age: ",
+            "Personal Message: ",
+            "Additional Notes: "
+        ].join("\n");
+    }
+
+    return [
+        "صاحب عيد الميلاد: ",
+        "العمر: ",
+        "الرسالة الشخصية: ",
+        "تفاصيل إضافية: "
+    ].join("\n");
+}
+
+let lastDefaultCustomization = "";
+
+function updateCustomizationLanguage(language) {
+    if (!customizationText) return;
+
+    const newDefault = getDefaultCustomization(language);
+
+    // غيّر العناوين تلقائيًا فقط لو العميل لسه ماغيّرش النص
+    if (
+        !customizationText.value.trim() ||
+        customizationText.value === lastDefaultCustomization
+    ) {
+        customizationText.value = newDefault;
+    }
+
+    lastDefaultCustomization = newDefault;
+
+    customizationText.placeholder =
+        customizationText.getAttribute(`data-placeholder-${language}`) || "";
+}
 
 function applyLanguage() {
-    const savedLanguage = localStorage.getItem("4u-language");
-    const language = savedLanguage === "en" ? "en" : "ar";
+    const language = getLanguage();
 
-    // Set page language and direction
     document.documentElement.lang = language;
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
 
-    // Translate every element that has Arabic and English text
     document.querySelectorAll("[data-ar][data-en]").forEach((element) => {
         element.textContent = element.getAttribute(`data-${language}`);
     });
 
-    // Keep the countdown intro in English in both languages
     const introText = document.querySelector(".intro-text");
 
     if (introText) {
         introText.textContent = "...something special is waiting u";
     }
 
-    // Update the browser tab title
     document.title = language === "en"
         ? "Birthday Surprise | 4U celebrations"
         : "مفاجأة عيد الميلاد | 4U celebrations";
 
-    // Update the WhatsApp order message
-    const orderButton = document.getElementById("orderButton");
-
-    if (orderButton) {
-        const message = language === "en"
-            ? "Hello 4U, I would like to order a gift website design"
-            : "أهلا 4U عايز أطلب تصميم هدية";
-
-        orderButton.href =
-            "https://wa.me/201040275280?text=" +
-            encodeURIComponent(message);
-    }
-
-    // Update the close button's accessible label
     const closeButton = document.getElementById("closeModal");
 
     if (closeButton) {
@@ -49,42 +109,57 @@ function applyLanguage() {
             language === "en" ? "Close" : "إغلاق"
         );
     }
+
+    updateCustomizationLanguage(language);
 }
 
-
-// Apply the saved language when the page opens
 applyLanguage();
 
-
-// Listen for language changes made in another tab
 window.addEventListener("storage", (event) => {
-    if (event.key === "4u-language") {
+    if (event.key === LANGUAGE_KEY) {
         applyLanguage();
     }
 });
 
 
-/* =========================
-   ABOUT DEMO MODAL
-========================= */
+// =========================
+// SCROLL TO CUSTOMIZATION
+// =========================
+
+function scrollToCustomization() {
+    closeAboutModal();
+
+    const section = document.getElementById("customization");
+
+    if (section) {
+        section.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+}
+
+document.querySelectorAll("[data-scroll-customization]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+        event.preventDefault();
+        scrollToCustomization();
+    });
+});
+
+
+// =========================
+// ABOUT DEMO MODAL
+// =========================
 
 const aboutButton = document.getElementById("aboutButton");
 const aboutModal = document.getElementById("aboutModal");
 const closeModalButton = document.getElementById("closeModal");
-const modalOrderButton = document.getElementById("modalOrderButton");
 
 let previousFocus = null;
 
-
-// Open the modal
 function openAboutModal(event) {
-    if (event) {
-        event.preventDefault();
-    }
-
-    if (!aboutModal) {
-        return;
-    }
+    if (event) event.preventDefault();
+    if (!aboutModal) return;
 
     previousFocus = document.activeElement;
 
@@ -92,81 +167,43 @@ function openAboutModal(event) {
     aboutModal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
 
-    // Move focus to the close button
-    if (closeModalButton) {
-        closeModalButton.focus();
-    }
+    if (closeModalButton) closeModalButton.focus();
 }
 
-
-// Close the modal
 function closeAboutModal() {
-    if (!aboutModal || !aboutModal.classList.contains("active")) {
-        return;
-    }
+    if (!aboutModal || !aboutModal.classList.contains("active")) return;
 
     aboutModal.classList.remove("active");
     aboutModal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
 
-    // Return focus to the element that opened the modal
     if (previousFocus && typeof previousFocus.focus === "function") {
         previousFocus.focus();
     }
 }
 
-
-// Open from the navigation menu
 if (aboutButton) {
     aboutButton.addEventListener("click", openAboutModal);
 }
 
-
-// Close using the X button
 if (closeModalButton) {
     closeModalButton.addEventListener("click", closeAboutModal);
 }
 
-
-// Close by clicking the dark background outside the modal
 if (aboutModal) {
     aboutModal.addEventListener("click", (event) => {
-        if (event.target === aboutModal) {
-            closeAboutModal();
-        }
+        if (event.target === aboutModal) closeAboutModal();
     });
 }
 
-
-// Close using the Escape key
 document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-        closeAboutModal();
-    }
+    if (event.key === "Escape") closeAboutModal();
 });
 
 
-// Go to the order section from inside the modal
-if (modalOrderButton) {
-    modalOrderButton.addEventListener("click", () => {
-        closeAboutModal();
-
-        const orderSection = document.getElementById("order");
-
-        if (orderSection) {
-            orderSection.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-        }
-    });
-}
-
-
-/* =========================
-   5 SECOND COUNTDOWN
-   Always stays in English
-========================= */
+// =========================
+// 5 SECOND COUNTDOWN
+// =========================
 
 let count = 5;
 
@@ -179,25 +216,23 @@ const countdown = setInterval(() => {
     count--;
 
     if (count > 0) {
-        number.innerText = count;
+        if (number) {
+            number.innerText = count;
+            number.style.animation = "none";
 
-        // Restart the number animation
-        number.style.animation = "none";
+            void number.offsetWidth;
 
-        void number.offsetWidth;
-
-        number.style.animation = "numberIn .8s ease";
+            number.style.animation = "numberIn .8s ease";
+        }
     } else {
         clearInterval(countdown);
 
-        number.innerText = "♡";
+        if (number) number.innerText = "♡";
 
         setTimeout(() => {
-            intro.classList.add("hide");
-            main.classList.add("show");
-
-            // Show the website menu
-            siteHeader.classList.add("visible");
+            if (intro) intro.classList.add("hide");
+            if (main) main.classList.add("show");
+            if (siteHeader) siteHeader.classList.add("visible");
 
             startHearts();
         }, 700);
@@ -205,37 +240,37 @@ const countdown = setInterval(() => {
 }, 1000);
 
 
-/* =========================
-   OPEN GIFT
-========================= */
+// =========================
+// OPEN GIFT
+// =========================
 
 function openGift() {
     const gift = document.getElementById("giftArea");
 
-    // Prevent repeated clicks
-    if (gift.classList.contains("open")) {
-        return;
-    }
+    if (!gift || gift.classList.contains("open")) return;
 
     gift.classList.add("open");
 
-    // Play birthday music
     const music = document.getElementById("birthdayMusic");
 
-    music.volume = 0.7;
-    music.play().catch(() => {});
+    if (music) {
+        music.volume = 0.7;
+        music.play().catch(() => {});
+    }
 
-    // Wait for the lid to open
     setTimeout(() => {
         gift.style.display = "none";
 
-        document.querySelector("h1").style.display = "none";
-        document.querySelector(".subtitle").style.display = "none";
-        document.querySelector(".gift-text").style.display = "none";
+        const title = document.querySelector(".content h1");
+        const subtitle = document.querySelector(".content .subtitle");
+        const giftText = document.querySelector(".gift-text");
+        const message = document.getElementById("message");
 
-        document.getElementById("message").style.display = "block";
+        if (title) title.style.display = "none";
+        if (subtitle) subtitle.style.display = "none";
+        if (giftText) giftText.style.display = "none";
+        if (message) message.style.display = "block";
 
-        // Heart burst
         for (let i = 0; i < 70; i++) {
             setTimeout(createHeart, i * 35);
         }
@@ -243,46 +278,163 @@ function openGift() {
 }
 
 
-/* =========================
-   CREATE HEART
-========================= */
+// =========================
+// FLOATING HEARTS
+// =========================
 
 function createHeart() {
     const heart = document.createElement("div");
 
     heart.className = "heart";
 
-    const hearts = [
-        "♡",
-        "❤︎",
-        "𝄞",
-        "𝜗𝜚",
-        "⋆"
-    ];
+    const hearts = ["♡", "❤︎", "𝄞", "𝜗𝜚", "⋆"];
 
-    heart.innerText =
-        hearts[Math.floor(Math.random() * hearts.length)];
-
+    heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
     heart.style.left = Math.random() * 100 + "vw";
-
-    heart.style.fontSize =
-        (15 + Math.random() * 35) + "px";
-
-    heart.style.animationDuration =
-        (4 + Math.random() * 5) + "s";
+    heart.style.fontSize = (15 + Math.random() * 35) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 5) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 9000);
+    setTimeout(() => heart.remove(), 9000);
 }
-
-
-/* =========================
-   CONTINUOUS HEARTS
-========================= */
 
 function startHearts() {
     setInterval(createHeart, 650);
+}
+
+
+// =========================
+// BUILD ORDER MESSAGE
+// =========================
+
+function getOrderMessage() {
+    const language = getLanguage();
+    const customerDetails = customizationText
+        ? customizationText.value.trim()
+        : "";
+
+    const templateName = language === "en"
+        ? "Girl Birthday Template"
+        : "قالب عيد ميلاد بنت";
+
+    const greeting = language === "en"
+        ? "Hello 4U Celebrations,"
+        : "أهلا 4U Celebrations,";
+
+    const orderLabel = language === "en"
+        ? "Order Number:"
+        : "رقم الطلب:";
+
+    const templateLabel = language === "en"
+        ? "Template Name:"
+        : "اسم القالب:";
+
+    const detailsLabel = language === "en"
+        ? "Order Details:"
+        : "بيانات التخصيص:";
+
+    return [
+        greeting,
+        "",
+        `${orderLabel} ${orderNumber}`,
+        `${templateLabel} ${templateName}`,
+        "",
+        detailsLabel,
+        customerDetails
+    ].join("\n");
+}
+
+
+// =========================
+// COPY ORDER DETAILS
+// =========================
+
+const copyOrderButton = document.getElementById("copyOrder");
+
+function showStatus(message, isError = false) {
+    if (!formStatus) return;
+
+    formStatus.textContent = message;
+    formStatus.style.color = isError ? "#7d2148" : "#ffffff";
+}
+
+if (copyOrderButton) {
+    copyOrderButton.addEventListener("click", async () => {
+        const message = getOrderMessage();
+        const language = getLanguage();
+
+        try {
+            await navigator.clipboard.writeText(message);
+
+            showStatus(
+                language === "en"
+                    ? "Order details copied successfully."
+                    : "تم نسخ بيانات الطلب بنجاح"
+            );
+        } catch (error) {
+            // طريقة بديلة للمتصفحات التي لا تدعم Clipboard API
+            const temporaryTextarea = document.createElement("textarea");
+
+            temporaryTextarea.value = message;
+            temporaryTextarea.style.position = "fixed";
+            temporaryTextarea.style.opacity = "0";
+
+            document.body.appendChild(temporaryTextarea);
+            temporaryTextarea.select();
+
+            const copied = document.execCommand("copy");
+            temporaryTextarea.remove();
+
+            showStatus(
+                copied
+                    ? (language === "en" ? "Order details copied." : "تم نسخ بيانات الطلب")
+                    : (language === "en"
+                        ? "Copy failed. Please select and copy the text manually."
+                        : "النسخ لم ينجح، انسخ النص يدويًا من فضلك"),
+                !copied
+            );
+        }
+    });
+}
+
+
+// =========================
+// SEND ORDER ON WHATSAPP
+// =========================
+
+const sendOrderButton = document.getElementById("sendOrder");
+
+if (sendOrderButton) {
+    sendOrderButton.addEventListener("click", () => {
+        const language = getLanguage();
+        const customerDetails = customizationText
+            ? customizationText.value.trim()
+            : "";
+
+        if (!customerDetails) {
+            showStatus(
+                language === "en"
+                    ? "Please fill in your order details first."
+                    : "اكتب بيانات طلبك الأول من فضلك",
+                true
+            );
+
+            if (customizationText) customizationText.focus();
+            return;
+        }
+
+        const message = getOrderMessage();
+
+        const whatsappURL =
+            `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+        showStatus(
+            language === "en"
+                ? "WhatsApp is opening. Please review and send your message."
+                : "واتساب هيفتح دلوقتي، راجع الرسالة واضغط إرسال"
+        );
+
+        window.open(whatsappURL, "_blank", "noopener,noreferrer");
+    });
 }

@@ -1,6 +1,6 @@
 
 // =========================
-// LANGUAGE SETTINGS
+// LANGUAGE SETTING
 // =========================
 
 const LANGUAGE_KEY = "4u-language";
